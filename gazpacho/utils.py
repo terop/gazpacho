@@ -1,5 +1,5 @@
 import re
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple
 from urllib.parse import quote, urlsplit, urlunsplit
 from xml.dom.minidom import parseString as string_to_dom
 from xml.parsers.expat import ExpatError
@@ -55,13 +55,13 @@ def format(html: str, fail: bool = False) -> str:
     """
     try:
         html_closed_voids = re.sub(
-            fr'(<({"|".join(VOID_TAGS)})[^/>]*)(>)', fr"\1/\3", html
+            fr'(<({"|".join(VOID_TAGS)})[^/>]*)(>)', r"\1/\3", html
         )
         dom = string_to_dom(html_closed_voids)
         ugly = dom.toprettyxml(indent="  ")
         split = list(filter(lambda x: len(x.strip()), ugly.split("\n")))[1:]
         html_joined = "\n".join(split)
-        html = re.sub(fr'(<)({"|".join(VOID_TAGS)})(.*)(\/>)', fr"\1\2\3>", html_joined)
+        html = re.sub(fr'(<)({"|".join(VOID_TAGS)})(.*)(\/>)', r"\1\2\3>", html_joined)
     except ExpatError as error:
         if fail:
             raise error

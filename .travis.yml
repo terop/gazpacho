@@ -12,13 +12,14 @@ before_install:
 
 install:
   - "pip install -e '.[dev]'"
-  - "pip install isort black mypy"
+  - "pip install isort black mypy flake8"
 
 script:
   - pytest tests/
   - isort --diff gazpacho
   - black --check .
   - mypy gazpacho
+  - flake8 .
 
 deploy:
   provider: pypi

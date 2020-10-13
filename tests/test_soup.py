@@ -175,14 +175,14 @@ def test_strip_keep_whitespace(fake_html_4):
     result = soup.strip(whitespace=False)
     assert (
         result
-        == "    \n      I like soup and I really like cold soup\n      I guess hot soup is okay too\n    \n    "
+        == "    \n      I like soup and I really like cold soup\n      I guess hot soup is okay too\n    \n    "  # noqa: E501
     )
 
 
 def test_find_no_match_first(fake_html_1):
     soup = Soup(fake_html_1)
     result = soup.find("a", mode="first")
-    assert result == None
+    assert result is None
 
 
 def test_find_no_match_all(fake_html_1):
@@ -194,7 +194,7 @@ def test_find_no_match_all(fake_html_1):
 def test_find_no_match_auto(fake_html_1):
     soup = Soup(fake_html_1)
     result = soup.find("a", mode="auto")
-    assert result == None
+    assert result is None
 
 
 def test_malformed_void_tags(fake_html_5):
